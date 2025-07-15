@@ -24,11 +24,11 @@ const date=localtime.toLocaleDateString(undefined,{
      
        <button onClick={currentloc} className='bg-blue-900 text-white px-4 py-1 cursor-pointer rounded-xl'>Use Current Location</button>
        <p className='text-white'>or</p>
-        <form onSubmit={handlesearch}>
-                  <input className='border bg-white text-black rounded px-4 py-1' type='text' placeholder='enter city name' value={search} onChange={(e)=>
+        <form onSubmit={handlesearch} className='mx-2 mb-2'>
+                  <input className='border bg-white text-black rounded px-3 py-1' type='text' placeholder='enter city name' value={search} onChange={(e)=>
                       setsearch(e.target.value)
                   }/>
-                  <button type='submit' className='bg-blue-900 text-white mx-2 px-4 py-1 cursor-pointer rounded-xl'>Search</button>
+                  <button type='submit' className='bg-blue-900 text-white mx-1 px-3 py-1 cursor-pointer rounded-xl'>Search</button>
               </form>
         <div className='backdrop-blur-lg bg-white/10 border border-white/30 shadow-xl p-8 rounded-2xl h-[380px] w-[320px] text-white space-y-6 flex flex-col items-center justify-center'>
            <div className='text-center'>

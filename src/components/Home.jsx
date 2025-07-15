@@ -7,31 +7,25 @@ const Home = () => {
     const[error,seterror]=useState("");
     const API_KEY="4051080164b9ac16948299080a91e8f5"
     const[search,setsearch]=useState("");
-    const[forecast,setforecast]=useState([]);
+    const[loading,setloading]=useState("");
 
-const handleforecast=async(query)=>{
-  try{
-    const response=await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=${API_KEY}`)
-    const result=await response.json();
-    console.log(result);
-    setforecast(result)
-  }catch(error){
-    seterror("an error occured while fetching forecast data");
-    console.log("an error occured while fetching forecast data")
-  }
-}
 
 
     const fetchdata=async(query)=>{
+       
         try{
             const response=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${API_KEY}`);
             const result=await response.json();
+           
             if(result.cod!==200){
-                seterror("bad request to the server enter correct data");
+                
+                seterror("please enter correct name for city");
                 
             }else{
+              
                 seterror("");
-                setdata(result)
+                setdata(result);
+
             }
         console.log(result)
             
@@ -42,11 +36,16 @@ const handleforecast=async(query)=>{
     }
 
     useEffect(()=>{
-        fetchdata("london");
+       setloading("loading...");
+        fetchdata("london").finally(()=>{
+          setloading("")
+        })
     },[])
     const handlesearch=(e)=>{
     e.preventDefault();
-    if(search.trim!==""){
+    
+    if(search.trim !== "" ){
+     
         fetchdata(search);
         seterror("")
     }
@@ -81,16 +80,17 @@ const handleforecast=async(query)=>{
   }
   return (
     <div className='max-h-screen overflow-hidden'>
-      
-   { data&& <Card 
+     {loading && <h3 className='text-black flex items-center justify-center mt-60'>{loading}</h3>} 
+  
+   { data && (<Card 
      item={data} 
      search={search} 
      handlesearch={handlesearch} 
      setsearch={setsearch}
      currentloc={currentloc}
      error={error}
-     
-     /> }
+   
+     />) }
     
     </div>
   )
