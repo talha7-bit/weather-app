@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card';
+import { LoaderCircle } from 'lucide-react';
+
 
 
 const Home = () => {
@@ -8,11 +10,12 @@ const Home = () => {
     const API_KEY="4051080164b9ac16948299080a91e8f5"
     const[search,setsearch]=useState("");
     const[loading,setloading]=useState("");
+    const[load,setload]=useState(false);
 
 
 
     const fetchdata=async(query)=>{
-       
+       setload(true);
         try{
             const response=await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${API_KEY}`);
             const result=await response.json();
@@ -32,6 +35,8 @@ const Home = () => {
 
         }catch(error){
             seterror("an error occured while fetching data");
+        }finally{
+          setload(false);
         }
     }
 
@@ -89,7 +94,8 @@ const Home = () => {
      setsearch={setsearch}
      currentloc={currentloc}
      error={error}
-   
+     load={load}
+     setload={setload}
      />) }
     
     </div>

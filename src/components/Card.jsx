@@ -1,8 +1,9 @@
 import React from 'react'
 import pic1 from '../assets/download.png'
 import pic2 from '../assets/download1.jpeg'
+import { LoaderCircle } from 'lucide-react'
 
-const Card = ({item,search,setsearch,handlesearch,currentloc,error}) => {
+const Card = ({item,search,setsearch,handlesearch,currentloc,error,load,setload}) => {
 
  const icon=item.weather[0].icon;
  const description=item.weather[0].description;
@@ -24,11 +25,11 @@ const date=localtime.toLocaleDateString(undefined,{
      
        <button onClick={currentloc} className='bg-blue-900 text-white px-4 py-1 cursor-pointer rounded-xl'>Use Current Location</button>
        <p className='text-white'>or</p>
-        <form onSubmit={handlesearch} className='mx-2 mb-2'>
-                  <input className='border bg-white text-black rounded px-3 py-1' type='text' placeholder='enter city name' value={search} onChange={(e)=>
+        <form onSubmit={handlesearch} className='mx-2 mb-2 flex'>
+                  <input className='border bg-white text-black rounded px-1 py-1' type='text' placeholder='enter city name' value={search} onChange={(e)=>
                       setsearch(e.target.value)
                   }/>
-                  <button type='submit' className='bg-blue-900 text-white mx-1 px-3 py-1 cursor-pointer rounded-xl'>Search</button>
+                  <button type='submit' className='bg-blue-900 flex text-white mx-1 px-3 py-1 cursor-pointer rounded-xl'>{load && <LoaderCircle className='h-4 w-4 animate-spin'/>}Search</button>
               </form>
         <div className='backdrop-blur-lg bg-white/10 border border-white/30 shadow-xl p-8 rounded-2xl h-[380px] w-[320px] text-white space-y-6 flex flex-col items-center justify-center'>
            <div className='text-center'>
